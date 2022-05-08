@@ -28,7 +28,11 @@
       "linebreak-style": "off",
       "lines-between-class-members": "off",
       "import/extensions": ["error", "always", {
-        "ts": "ignorePackages"
+        "ts": "ignorePackages",
+        "js": "ignorePackags"
+      }],
+      "import/no-extraneous-dependencies": ["error", {
+        "devDependencies": true
       }]
     },
     "globals": {

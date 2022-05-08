@@ -27,15 +27,15 @@ const setupRunner = async (filename: string) => {
   const pathname = backslashToFrontslash(filename);
   try {
     const code = await readFile(pathname, { encoding: 'utf8' });
-    let script: Runner;
+    let runner: Runner;
     if (runners.has(pathname)) {
-      script = runners.get(pathname);
+      runner = runners.get(pathname);
     } else {
-      script = new Runner(pathname);
-      runners.set(pathname, script);
+      runner = new Runner(pathname);
+      runners.set(pathname, runner);
       await setRunnerConfig(pathname);
     }
-    script.code = code;
+    runner.code = code;
   } catch (err) {
     if (err.code === 'ENOENT') {
       runners.delete(pathname);

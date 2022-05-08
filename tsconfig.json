@@ -6,8 +6,8 @@
       "removeComments": true,
       "outDir": "./dist/",
       "sourceMap": false,
-      "esModuleInterop": true
+      "esModuleInterop": true,
+      "jsx": "react"
     },
     "include": ["src/**/*"],
   }
-  
