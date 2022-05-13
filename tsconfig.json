@@ -1,13 +1,13 @@
 {
     "compilerOptions": {
-      "target": "ES2022",
+      "target": "ESNext",
       "module": "CommonJS",
       "noImplicitAny": true,
       "removeComments": true,
       "outDir": "./dist/",
       "sourceMap": false,
       "esModuleInterop": true,
-      "jsx": "react"
+      "jsx": "react",
     },
     "include": ["src/**/*"],
   }

@@ -6,6 +6,9 @@ module.exports = [
     mode: 'development',
     entry: './src/gui/index.tsx',
     target: 'electron-renderer',
+    resolve: {
+      extensions: ['.ts', '.tsx', '...'],
+    },
     module: {
       rules: [{
         test: /\.ts(x?)$/,
