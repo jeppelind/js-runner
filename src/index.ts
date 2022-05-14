@@ -1,5 +1,8 @@
 import { app, BrowserWindow } from 'electron';
-import { exportRunners, initScripts, watchDir } from './script-handler/manager';
+import emitter from './script-handler/eventEmitter';
+import {
+  exportRunner, exportRunners, initScripts, watchDir,
+} from './script-handler/manager';
 
 const initScriptHandler = () => {
   initScripts('./testdir');
@@ -16,10 +19,14 @@ const createWindow = () => {
     },
   });
   win.loadFile('./gui/index.html');
+  emitter.on('runnerUpdated', (msg) => {
+    const runner = exportRunner(msg);
+    win.webContents.send('runnerUpdated', runner);
+  });
 
   win.webContents.on('did-finish-load', () => {
     const runnerConfigs = exportRunners();
-    win.webContents.send('bazooka', runnerConfigs);
+    win.webContents.send('runnerList', runnerConfigs);
   });
 };
 

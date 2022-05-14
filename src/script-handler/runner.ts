@@ -55,6 +55,10 @@ class Runner {
     }
   }
 
+  get config() {
+    return { ...this.#config };
+  }
+
   set code(code: string) {
     this.#script = new vm.Script(code);
     if (this.#config.enabled && this.#config.runImmediately) {

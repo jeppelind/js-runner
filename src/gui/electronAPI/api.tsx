@@ -3,7 +3,7 @@
 /* eslint-disable max-len */
 import React from 'react';
 import { useSetRecoilState } from 'recoil';
-import { runnersState } from '../app/store';
+import { runnersSelector } from '../app/store';
 
 interface IElectron {
   ipcRenderer: {
@@ -18,12 +18,16 @@ declare global {
 }
 
 const APIListeners: () => any = () => {
-  const setRunners = useSetRecoilState(runnersState);
+  const setRunners = useSetRecoilState(runnersSelector);
 
-  window.electron.ipcRenderer.on('bazooka', (_, msg) => {
-    console.dir(msg);
-    setRunners((oldState) => [...oldState, ...msg]);
+  window.electron.ipcRenderer.on('runnerList', (_, msg) => {
+    setRunners(msg);
   });
+
+  window.electron.ipcRenderer.on('runnerUpdated', (_, msg) => {
+    setRunners(msg);
+  });
+
   return null;
 };
 
