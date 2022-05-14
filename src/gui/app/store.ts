@@ -1,13 +1,21 @@
 import { atom, selector, selectorFamily } from 'recoil';
 
 type Runner = {
-  key: string,
+  id: string,
   config: Record<string, unknown>
 }
 
-export const runnersState = atom({
+const runnersState = atom({
   key: 'Runners',
   default: <Runner[]>[],
+});
+
+export const runnerIdsSelector = selector({
+  key: 'RunnerIdsSelector',
+  get: ({ get }) => {
+    const runners = get(runnersState);
+    return runners.map((runner) => runner.id);
+  },
 });
 
 export const runnersSelector = selector({
@@ -20,7 +28,7 @@ export const runnersSelector = selector({
         return newValue;
       }
       const newState = [...prevState];
-      const runnerIdx = newState.findIndex((runner) => runner.key === newValue.key);
+      const runnerIdx = newState.findIndex((runner) => runner.id === newValue.id);
       if (runnerIdx === -1) {
         newState.push(newValue);
       } else {
@@ -33,8 +41,8 @@ export const runnersSelector = selector({
 
 export const runnerSelector = selectorFamily({
   key: 'RunnerSelector',
-  get: (key: string) => ({ get }) => {
+  get: (id: string) => ({ get }) => {
     const runners = get(runnersState);
-    return runners.find((runner) => runner.key === key);
+    return runners.find((runner) => runner.id === id);
   },
 });

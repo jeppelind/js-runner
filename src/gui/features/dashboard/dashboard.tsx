@@ -1,6 +1,6 @@
 import React from 'react';
 import { useRecoilValue } from 'recoil';
-import { runnerSelector, runnersState } from '../../app/store';
+import { runnerIdsSelector, runnerSelector } from '../../app/store';
 
 type RunnerItemProps = {
   id: string,
@@ -11,20 +11,20 @@ const RunnerItem = ({ id }: RunnerItemProps) => {
 
   return (
     <div>
-      <h3>{runner.key}</h3>
+      <h3>{runner.id}</h3>
       <p>{`Repeat interval ${runner.config.repeatDelay}`}</p>
     </div>
   );
 };
 
 const Dashboard = () => {
-  const runners = useRecoilValue(runnersState);
+  const runnerIds = useRecoilValue(runnerIdsSelector);
 
   return (
     <>
-      <div>Runners: {runners.length}</div>
+      <div>Runners: {runnerIds.length}</div>
       {
-        runners.map((runner) => <RunnerItem key={runner.key} id={runner.key} />)
+        runnerIds.map((id) => <RunnerItem key={id} id={id} />)
       }
     </>
   );
