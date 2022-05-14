@@ -1,5 +1,6 @@
 import { watch } from 'fs';
 import { readdir, readFile } from 'fs/promises';
+import emitter from './eventEmitter';
 import Runner from './runner';
 
 const runners = new Map<string, Runner>();
@@ -18,6 +19,7 @@ const setRunnerConfig = async (filename: string) => {
     const userConfig = await readFile(configName, { encoding: 'utf8' });
     const runner = runners.get(scriptName);
     runner.config = JSON.parse(userConfig);
+    emitter.emit('runnerUpdated', scriptName);
   } catch (err) {
     console.error(err.message);
   }
@@ -27,15 +29,15 @@ const setupRunner = async (filename: string) => {
   const pathname = backslashToFrontslash(filename);
   try {
     const code = await readFile(pathname, { encoding: 'utf8' });
-    let script: Runner;
+    let runner: Runner;
     if (runners.has(pathname)) {
-      script = runners.get(pathname);
+      runner = runners.get(pathname);
     } else {
-      script = new Runner(pathname);
-      runners.set(pathname, script);
+      runner = new Runner(pathname);
+      runners.set(pathname, runner);
       await setRunnerConfig(pathname);
     }
-    script.code = code;
+    runner.code = code;
   } catch (err) {
     if (err.code === 'ENOENT') {
       runners.delete(pathname);
@@ -70,4 +72,20 @@ export const watchDir = async (dir: string) => {
       setRunnerConfig(`${dir}/${filename}`);
     }
   });
+};
+
+export const exportRunner = (key: string) => {
+  if (runners.has(key)) {
+    const runner = runners.get(key);
+    return { id: key, config: runner.config };
+  }
+  return null;
+};
+
+export const exportRunners = () => {
+  const output: { id: string, config: any }[] = [];
+  runners.forEach((value, key) => {
+    output.push({ id: key, config: value.config });
+  });
+  return output;
 };

@@ -17,10 +17,10 @@
         "@typescript-eslint"
     ],
     "settings": {
-      "import/extensions": [".js", ".ts"],
+      "import/extensions": [".js", ".ts", ".tsx"],
       "import/resolver": {
         "node": {
-          "extensions": [".js", ".ts"]
+          "extensions": [".js", ".ts", ".tsx"]
         }
       }
     },
@@ -28,7 +28,12 @@
       "linebreak-style": "off",
       "lines-between-class-members": "off",
       "import/extensions": ["error", "always", {
-        "ts": "ignorePackages"
+        "ts": "ignorePackages",
+        "js": "ignorePackages",
+        "tsx": "ignorePackages"
+      }],
+      "import/no-extraneous-dependencies": ["error", {
+        "devDependencies": true
       }]
     },
     "globals": {

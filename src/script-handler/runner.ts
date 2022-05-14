@@ -5,6 +5,7 @@ import vm, { Script } from 'vm';
 type CustomObject = Record<string, unknown>;
 
 type ScriptConfig = {
+  enabled: boolean,
   runImmediately: boolean,
   repeatDelay: number,
   nodeAPI: string[]
@@ -15,6 +16,7 @@ type ScriptContext = {
 }
 
 const defaultScriptConfig: ScriptConfig = {
+  enabled: true,
   runImmediately: true,
   repeatDelay: 0,
   nodeAPI: [],
@@ -48,14 +50,18 @@ class Runner {
 
     this.#context = { ...this.#context, ...nodeAPIs };
 
-    if (this.#config.repeatDelay > 0) {
+    if (this.#config.enabled && this.#config.repeatDelay > 0) {
       this.#setRepeatInterval(this.#config.repeatDelay);
     }
   }
 
+  get config() {
+    return { ...this.#config };
+  }
+
   set code(code: string) {
     this.#script = new vm.Script(code);
-    if (this.#config.runImmediately) {
+    if (this.#config.enabled && this.#config.runImmediately) {
       this.#run();
     }
   }
