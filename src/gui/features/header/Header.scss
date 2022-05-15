@@ -1,0 +1,6 @@
+@import '../../colors';
+
+.navbar {
+  -webkit-app-region: drag;
+  background-color: shade-color($background, 25%);
+}

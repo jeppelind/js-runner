@@ -1,0 +1,28 @@
+// Colors
+$background: rgb(36, 36, 42);
+$text: rgb(226, 226, 226);
+$primary: #50a4ee;
+$secondary: rgb(170, 170, 170);
+$light: $text;
+$red: #f57e7e;
+$blue: #83a4ef;
+$turquoise: #79dbd6;
+$green: #6adb6d;
+$yellow: #dbcd6a;
+$purple: #dd98ff;
+$white: white;
+
+// Tint a color: mix a color with white
+@function tint-color($color, $weight) {
+  @return mix(white, $color, $weight);
+}
+
+// Shade a color: mix a color with black
+@function shade-color($color, $weight) {
+  @return mix(black, $color, $weight);
+}
+
+// Shade the color if the weight is positive, else tint it
+@function shift-color($color, $weight) {
+  @return if($weight > 0, shade-color($color, $weight), tint-color($color, -$weight));
+}

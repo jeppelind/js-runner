@@ -3,7 +3,7 @@
 /* eslint-disable max-len */
 import React from 'react';
 import { useSetRecoilState } from 'recoil';
-import { runnersSelector } from '../app/store';
+import { setRunnersSelector } from '../app/store';
 
 interface IElectron {
   ipcRenderer: {
@@ -18,7 +18,7 @@ declare global {
 }
 
 const APIListeners: () => any = () => {
-  const setRunners = useSetRecoilState(runnersSelector);
+  const setRunners = useSetRecoilState(setRunnersSelector);
 
   window.electron.ipcRenderer.on('runnerList', (_, msg) => {
     setRunners(msg);

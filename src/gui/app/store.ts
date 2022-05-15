@@ -20,6 +20,21 @@ export const runnerIdsSelector = selector({
 
 export const runnersSelector = selector({
   key: 'RunnersSelector',
+  get: ({ get }) => {
+    const runners = get(runnersState);
+    const activeRunners = runners.filter((runner) => runner.config.enabled === true);
+    const inactiveRunners = runners.filter((runner) => runner.config.enabled === false);
+
+    return {
+      runners,
+      activeRunners,
+      inactiveRunners,
+    };
+  },
+});
+
+export const setRunnersSelector = selector({
+  key: 'SetRunnersSelector',
   get: ({ get }) => get(runnersState),
   set: ({ set }, newValue: Runner | Runner[]) => set(
     runnersState,

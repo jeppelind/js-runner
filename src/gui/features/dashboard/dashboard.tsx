@@ -1,32 +1,27 @@
-import React from 'react';
-import { useRecoilValue } from 'recoil';
-import { runnerIdsSelector, runnerSelector } from '../../app/store';
-
-type RunnerItemProps = {
-  id: string,
-};
-
-const RunnerItem = ({ id }: RunnerItemProps) => {
-  const runner = useRecoilValue(runnerSelector(id));
-
-  return (
-    <div>
-      <h3>{runner.id}</h3>
-      <p>{`Repeat interval ${runner.config.repeatDelay}`}</p>
-    </div>
-  );
-};
+import React, { useState } from 'react';
+import { Row, Stack } from 'react-bootstrap';
+import RunnerMenu from '../menu/RunnerMenu';
+import './Dashboard.scss';
 
 const Dashboard = () => {
-  const runnerIds = useRecoilValue(runnerIdsSelector);
+  const [selectedRunner, setSelectedRunner] = useState('');
+
+  const selectRunner = (id: string) => {
+    setSelectedRunner(id);
+  };
 
   return (
-    <>
-      <div>Runners: {runnerIds.length}</div>
-      {
-        runnerIds.map((id) => <RunnerItem key={id} id={id} />)
-      }
-    </>
+    <Stack className='main-content' direction='horizontal'>
+      <RunnerMenu selectMenuItem={selectRunner} />
+      <Row>
+        <h3>Selected runner: {selectedRunner}</h3>
+      </Row>
+      {/* <Row>
+        {
+          runnerIds.map((id) => <RunnerItem key={id} id={id} />)
+        }
+      </Row> */}
+    </Stack>
   );
 };
 
