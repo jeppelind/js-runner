@@ -2,7 +2,12 @@ import { atom, selector, selectorFamily } from 'recoil';
 
 type Runner = {
   id: string,
-  config: Record<string, unknown>
+  config: {
+    enabled: boolean,
+    runImmediately: boolean,
+    repeatDelay: number,
+    nodeAPI: string[],
+  },
 }
 
 const runnersState = atom({

@@ -3,14 +3,14 @@ import './index.scss';
 import { createRoot } from 'react-dom/client';
 import { RecoilRoot } from 'recoil';
 import APIListeners from './electronAPI/api';
-import Dashboard from './features/dashboard/Dashboard';
 import Header from './features/header/Header';
+import Content from './features/content/Content';
 
 const App = () => (
   <RecoilRoot>
     <APIListeners />
     <Header />
-    <Dashboard />
+    <Content />
   </RecoilRoot>
 );
 

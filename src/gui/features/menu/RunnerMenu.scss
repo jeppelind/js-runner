@@ -13,5 +13,26 @@
   font-size: 0.8rem;
   text-transform: uppercase;
   font-weight: 500;
-  letter-spacing: 1px;
+  letter-spacing: 0.07rem;
+}
+
+.menu-item-container {
+  width: 190px;
+}
+
+.menu-item-label {
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+.icon-warn {
+  height: 1.5rem;
+  width: 1.5rem;
+  color: $warning;
+}
+
+.icon-error {
+  height: 1.5rem;
+  width: 1.5rem;
+  color: $danger;
 }
