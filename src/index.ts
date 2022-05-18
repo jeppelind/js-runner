@@ -25,6 +25,11 @@ const createWindow = () => {
   });
   win.loadFile('./gui/index.html');
 
+  emitter.on('runnerExecuted', (msg) => {
+    const runner = exportRunner(msg);
+    win.webContents.send('runnerExecuted', runner);
+  });
+
   emitter.on('runnerUpdated', (msg) => {
     const runner = exportRunner(msg);
     win.webContents.send('runnerUpdated', runner);

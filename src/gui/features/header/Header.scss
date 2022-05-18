@@ -4,3 +4,8 @@
   -webkit-app-region: drag;
   background-color: shade-color($background, 25%);
 }
+
+.version-number {
+  color: shade-color($text, 70%) !important;
+  font-size: 0.8rem;
+}

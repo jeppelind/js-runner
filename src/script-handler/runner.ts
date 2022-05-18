@@ -1,6 +1,7 @@
 /* eslint-disable global-require */
 /* eslint-disable import/no-dynamic-require */
 import vm, { Script } from 'vm';
+import emitter from './eventEmitter';
 
 type CustomObject = Record<string, unknown>;
 
@@ -9,6 +10,13 @@ type ScriptConfig = {
   runImmediately: boolean,
   repeatDelay: number,
   nodeAPI: string[]
+}
+
+type MetaData = {
+  lastRun: number,
+  successfulRuns: number,
+  failedRuns: number,
+  runHistory: string[],
 }
 
 type ScriptContext = {
@@ -22,6 +30,13 @@ const defaultScriptConfig: ScriptConfig = {
   nodeAPI: [],
 };
 
+const defaultMetaData: MetaData = {
+  lastRun: 0,
+  successfulRuns: 0,
+  failedRuns: 0,
+  runHistory: [],
+};
+
 const defaultContext: ScriptContext = {
   global: {},
 };
@@ -32,10 +47,12 @@ class Runner {
   #timerID: NodeJS.Timeout;
   #config: ScriptConfig;
   #context: ScriptContext;
+  #meta: MetaData;
 
   constructor(name: string) {
     this.#name = name;
     this.#context = { ...defaultContext };
+    this.#meta = { ...defaultMetaData };
     this.#config = { ...defaultScriptConfig };
   }
 
@@ -59,6 +76,10 @@ class Runner {
     return { ...this.#config };
   }
 
+  get meta() {
+    return { ...this.#meta };
+  }
+
   set code(code: string) {
     this.#script = new vm.Script(code);
     if (this.#config.enabled && this.#config.runImmediately) {
@@ -74,13 +95,17 @@ class Runner {
   }
 
   #run() {
+    this.#meta.lastRun = Date.now();
     const newContext = { ...this.#context };
     try {
       this.#script.runInNewContext(newContext);
+      this.#meta.successfulRuns += 1;
     } catch (err) {
       console.log(`Error in file: ${this.#name}:`);
       console.error(err);
+      this.#meta.failedRuns += 1;
     }
+    emitter.emit('runnerExecuted', this.#name);
   }
 }
 

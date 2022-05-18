@@ -77,15 +77,15 @@ export const watchDir = async (dir: string) => {
 export const exportRunner = (key: string) => {
   if (runners.has(key)) {
     const runner = runners.get(key);
-    return { id: key, config: runner.config };
+    return { id: key, config: runner.config, meta: runner.meta };
   }
   return null;
 };
 
 export const exportRunners = () => {
-  const output: { id: string, config: any }[] = [];
+  const output: { id: string, config: any, meta: any }[] = [];
   runners.forEach((value, key) => {
-    output.push({ id: key, config: value.config });
+    output.push({ id: key, config: value.config, meta: value.meta });
   });
   return output;
 };

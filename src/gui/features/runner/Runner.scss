@@ -1,9 +1,20 @@
+@import '../../colors';
+
 .label {
   font-size: 0.8rem;
   font-weight: 500;
   letter-spacing: 0.07rem;
+  color: shade-color($text, 20%);;
 }
 
 .dash-heading {
   font-weight: 500;
+}
+
+.success-danger {
+  color: $danger;
+}
+
+.success-warn {
+  color: $warning;
 }

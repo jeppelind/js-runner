@@ -7,6 +7,7 @@
       "outDir": "./dist/",
       "sourceMap": false,
       "esModuleInterop": true,
+      "resolveJsonModule": true,
       "jsx": "react",
     },
     "include": ["src/**/*"],

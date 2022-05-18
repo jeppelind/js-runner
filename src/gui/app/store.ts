@@ -1,6 +1,6 @@
 import { atom, selector, selectorFamily } from 'recoil';
 
-type Runner = {
+export type Runner = {
   id: string,
   config: {
     enabled: boolean,
@@ -8,6 +8,12 @@ type Runner = {
     repeatDelay: number,
     nodeAPI: string[],
   },
+  meta: {
+    lastRun: number,
+    successfulRuns: number,
+    failedRuns: number,
+    runHistory: string[],
+  }
 }
 
 const runnersState = atom({

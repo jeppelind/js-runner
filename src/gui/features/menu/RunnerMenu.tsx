@@ -44,14 +44,14 @@ const RunnerMenu = ({ onSelectItem }: RunnerMenuProps) => {
         <span className='menu-label'>Active</span>
         {
           activeRunners.map((runner) => (
-            <MenuItem label={runner.id} />
+            <MenuItem key={runner.id} label={runner.id} />
           ))
         }
         <br />
         <span className='menu-label'>Inactive</span>
         {
           inactiveRunners.map((runner) => (
-            <MenuItem label={runner.id} />
+            <MenuItem key={runner.id} label={runner.id} />
           ))
         }
       </Nav>

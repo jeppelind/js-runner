@@ -28,6 +28,10 @@ const APIListeners: () => any = () => {
     setRunners(msg);
   });
 
+  window.electron.ipcRenderer.on('runnerExecuted', (_, msg) => {
+    setRunners(msg);
+  });
+
   return null;
 };
 
