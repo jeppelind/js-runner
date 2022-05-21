@@ -1,5 +1,6 @@
 import { watch } from 'fs';
 import { readdir, readFile } from 'fs/promises';
+import logger from '../logger/logger';
 import emitter from './eventEmitter';
 import Runner from './runner';
 
@@ -12,7 +13,7 @@ const setRunnerConfig = async (filename: string) => {
   const scriptName = `${nameWithoutExtension}.js`;
   const configName = `${nameWithoutExtension}.json`;
   if (!runners.has(scriptName)) {
-    console.log(`Runner "${scriptName}" not found.`);
+    logger.log(`Runner ${scriptName} not found.`);
     return;
   }
   try {
@@ -21,7 +22,7 @@ const setRunnerConfig = async (filename: string) => {
     runner.config = JSON.parse(userConfig);
     emitter.emit('runnerUpdated', scriptName);
   } catch (err) {
-    console.error(err.message);
+    logger.error(err.message);
   }
 };
 
@@ -42,7 +43,7 @@ const setupRunner = async (filename: string) => {
     if (err.code === 'ENOENT') {
       runners.delete(pathname);
     } else {
-      console.error(err.message);
+      logger.error(err.message);
     }
   }
 };
@@ -60,7 +61,7 @@ export const initScripts = async (dir: string) => {
       }
     });
   } catch (err) {
-    console.error(err);
+    logger.error(err);
   }
 };
 

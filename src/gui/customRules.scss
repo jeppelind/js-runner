@@ -1,8 +1,13 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400;500;600;700&display=swap');
 @import 'colors';
 @import '~bootstrap/scss/bootstrap';
 
 $body-bg: $background;
 $body-color: $text;
+
+// Fonts
+$main-font: 'Montserrat', sans-serif;
+$font-family-sans-serif: $main-font;
 
 // Navbar
 $navbar-dark-brand-color: $text;
@@ -14,4 +19,3 @@ $nav-link-color: shade-color($text, 20%);
 $nav-link-hover-color: shade-color($text, 10%);
 $nav-pills-link-active-color: $text;
 $nav-pills-link-active-bg: tint-color($background, 10%);
-

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Nav, Stack } from 'react-bootstrap';
 import { useRecoilValue } from 'recoil';
-import { IoWarning, IoAlertCircle } from 'react-icons/io5';
+import { IoWarning, IoAlertCircle, IoHome } from 'react-icons/io5';
 import { runnersSelector } from '../../app/store';
 import './RunnerMenu.scss';
 
@@ -40,7 +40,15 @@ const RunnerMenu = ({ onSelectItem }: RunnerMenuProps) => {
 
   return (
     <div className='runner-menu'>
-      <Nav className='flex-column' variant='pills' onSelect={onSelectItem}>
+      <Nav className='flex-column' variant='pills' defaultActiveKey={''} onSelect={onSelectItem}>
+        <Nav.Item>
+          <Nav.Link className='home-button' eventKey=''>
+            <Stack className='menu-item-container' direction='horizontal'>
+              <IoHome className='icon-home' />
+              <div className='menu-label menu-home'>HOME</div>
+            </Stack>
+          </Nav.Link>
+        </Nav.Item>
         <span className='menu-label'>Active</span>
         {
           activeRunners.map((runner) => (

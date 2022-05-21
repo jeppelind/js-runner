@@ -4,10 +4,19 @@ import { useRecoilValue } from 'recoil';
 import { runnerSelector } from '../../app/store';
 import './Runner.scss';
 import RunnerConfig from './RunnerConfig';
+import RunnerLogs from './RunnerLogs';
 import RunnerStatus from './RunnerStatus';
 
 const RunnerInfo = ({ id }: { id: string }) => {
   const runner = useRecoilValue(runnerSelector(id));
+
+  if (id === '') {
+    return (
+      <Container className='ms-4 scrollwrap' fluid>
+        <RunnerLogs />
+      </Container>
+    );
+  }
 
   if (!runner) {
     return (

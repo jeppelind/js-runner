@@ -1,6 +1,7 @@
 /* eslint-disable global-require */
 /* eslint-disable import/no-dynamic-require */
 import vm, { Script } from 'vm';
+import { Logger } from '../logger/logger';
 import emitter from './eventEmitter';
 
 type CustomObject = Record<string, unknown>;
@@ -21,6 +22,7 @@ type MetaData = {
 
 type ScriptContext = {
   global: CustomObject,
+  logger: Logger,
 }
 
 const defaultScriptConfig: ScriptConfig = {
@@ -39,6 +41,7 @@ const defaultMetaData: MetaData = {
 
 const defaultContext: ScriptContext = {
   global: {},
+  logger: null,
 };
 
 class Runner {
@@ -51,7 +54,7 @@ class Runner {
 
   constructor(name: string) {
     this.#name = name;
-    this.#context = { ...defaultContext };
+    this.#context = { ...defaultContext, logger: new Logger({ script: name }) };
     this.#meta = { ...defaultMetaData };
     this.#config = { ...defaultScriptConfig };
   }
@@ -95,14 +98,17 @@ class Runner {
   }
 
   #run() {
+    if (Date.now() - this.#meta.lastRun < 10) {
+      return;
+    }
+
     this.#meta.lastRun = Date.now();
     const newContext = { ...this.#context };
     try {
       this.#script.runInNewContext(newContext);
       this.#meta.successfulRuns += 1;
     } catch (err) {
-      console.log(`Error in file: ${this.#name}:`);
-      console.error(err);
+      this.#context.logger.error(err);
       this.#meta.failedRuns += 1;
     }
     emitter.emit('runnerExecuted', this.#name);

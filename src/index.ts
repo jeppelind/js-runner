@@ -1,4 +1,5 @@
 import { app, BrowserWindow } from 'electron';
+import { LogItem } from './logger/logger';
 import emitter from './script-handler/eventEmitter';
 import {
   exportRunner, exportRunners, initScripts, watchDir,
@@ -10,6 +11,8 @@ const initScriptHandler = () => {
 };
 
 const createWindow = () => {
+  let clientReady = false;
+  const logCue: LogItem[] = [];
   const win = new BrowserWindow({
     width: 800,
     height: 600,
@@ -20,7 +23,6 @@ const createWindow = () => {
     },
     webPreferences: {
       preload: `${__dirname}/preload.js`,
-      // nodeIntegration: true,
     },
   });
   win.loadFile('./gui/index.html');
@@ -35,9 +37,19 @@ const createWindow = () => {
     win.webContents.send('runnerUpdated', runner);
   });
 
+  emitter.on('logUpdated', (msg: LogItem) => {
+    if (clientReady) {
+      win.webContents.send('logUpdated', msg);
+    } else {
+      logCue.push(msg);
+    }
+  });
+
   win.webContents.on('did-finish-load', () => {
+    clientReady = true;
     const runnerConfigs = exportRunners();
     win.webContents.send('runnerList', runnerConfigs);
+    logCue.map((msg) => win.webContents.send('logUpdated', msg));
   });
 };
 

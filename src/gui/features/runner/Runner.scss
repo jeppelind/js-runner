@@ -2,13 +2,13 @@
 
 .label {
   font-size: 0.8rem;
-  font-weight: 500;
-  letter-spacing: 0.07rem;
-  color: shade-color($text, 20%);;
+  font-weight: 600;
+  letter-spacing: 0.01rem;
+  color: shade-color($text, 20%);
 }
 
 .dash-heading {
-  font-weight: 500;
+  font-weight: 600;
 }
 
 .success-danger {
@@ -17,4 +17,49 @@
 
 .success-warn {
   color: $warning;
+}
+
+.scrollwrap {
+  padding-top: 40px;
+  padding-bottom: 60px;
+  overflow-y: auto;
+  max-height: -webkit-fill-available;
+}
+
+.log {
+  max-width: 576px;
+  background-color: tint-color($background, 15%);
+  border-radius: 5px;
+  padding-top: 0.6rem;
+  margin-right: 1rem;
+  margin-bottom: 1rem;
+  animation: 0.5s cubic-bezier(.35,.62,.53,.99) newMessage;
+}
+
+@keyframes newMessage {
+  from {
+    opacity: 0;
+    transform: scale(0);
+    margin-bottom: -4rem;
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+    margin-bottom: 1rem;
+  }
+}
+
+.log-error {
+  background-color: shade-color($danger, 20%);
+}
+
+.log-message {
+  font-size: 0.9rem;
+  padding-top: 0.6rem;
+}
+
+.timestamp {
+  font-size: 0.7rem;
+  color: shade-color($text, 25%);
 }

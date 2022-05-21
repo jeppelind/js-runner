@@ -12,7 +12,7 @@
 .menu-label {
   font-size: 0.8rem;
   text-transform: uppercase;
-  font-weight: 500;
+  font-weight: 600;
   letter-spacing: 0.07rem;
 }
 
@@ -23,6 +23,21 @@
 .menu-item-label {
   text-overflow: ellipsis;
   overflow: hidden;
+  font-size: 0.9rem;
+}
+
+.menu-home {
+  padding-left: 0.7rem;
+}
+
+.home-button {
+  padding: 1rem;
+  margin-bottom: 1rem;
+}
+
+.icon-home {
+  height: 1.2rem;
+  width: 1.2rem;
 }
 
 .icon-warn {

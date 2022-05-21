@@ -3,7 +3,7 @@
 /* eslint-disable max-len */
 import React from 'react';
 import { useSetRecoilState } from 'recoil';
-import { setRunnersSelector } from '../app/store';
+import { setLogsSelector, setRunnersSelector } from '../app/store';
 
 interface IElectron {
   ipcRenderer: {
@@ -19,6 +19,7 @@ declare global {
 
 const APIListeners: () => any = () => {
   const setRunners = useSetRecoilState(setRunnersSelector);
+  const setLog = useSetRecoilState(setLogsSelector);
 
   window.electron.ipcRenderer.on('runnerList', (_, msg) => {
     setRunners(msg);
@@ -30,6 +31,10 @@ const APIListeners: () => any = () => {
 
   window.electron.ipcRenderer.on('runnerExecuted', (_, msg) => {
     setRunners(msg);
+  });
+
+  window.electron.ipcRenderer.on('logUpdated', (_, msg) => {
+    setLog((currentState) => [msg, ...currentState]);
   });
 
   return null;
