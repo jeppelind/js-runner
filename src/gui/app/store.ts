@@ -65,6 +65,22 @@ export const setRunnersSelector = selector({
   ),
 });
 
+export const deleteRunnersSelector = selector({
+  key: 'DeleteRunnersSelector',
+  get: ({ get }) => get(runnersState),
+  set: ({ set }, newValue: string | Runner[]) => set(
+    runnersState,
+    (prevState) => {
+      const newState = [...prevState];
+      const runnerIdx = newState.findIndex((runner) => runner.id === newValue);
+      if (runnerIdx > -1) {
+        newState.splice(runnerIdx, 1);
+      }
+      return newState;
+    },
+  ),
+});
+
 export const runnerSelector = selectorFamily({
   key: 'RunnerSelector',
   get: (id: string) => ({ get }) => {

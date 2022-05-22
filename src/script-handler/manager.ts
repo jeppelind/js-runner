@@ -42,6 +42,8 @@ const setupRunner = async (filename: string) => {
   } catch (err) {
     if (err.code === 'ENOENT') {
       runners.delete(pathname);
+      logger.log(`Deleted ${pathname}`);
+      emitter.emit('runnerDeleted', pathname);
     } else {
       logger.error(err.message);
     }

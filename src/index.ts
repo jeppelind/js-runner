@@ -37,6 +37,10 @@ const createWindow = () => {
     win.webContents.send('runnerUpdated', runner);
   });
 
+  emitter.on('runnerDeleted', (msg) => {
+    win.webContents.send('runnerDeleted', msg);
+  });
+
   emitter.on('logUpdated', (msg: LogItem) => {
     if (clientReady) {
       win.webContents.send('logUpdated', msg);
@@ -48,7 +52,7 @@ const createWindow = () => {
   win.webContents.on('did-finish-load', () => {
     clientReady = true;
     const runnerConfigs = exportRunners();
-    win.webContents.send('runnerList', runnerConfigs);
+    runnerConfigs.map((runner) => win.webContents.send('runnerUpdated', runner));
     logCue.map((msg) => win.webContents.send('logUpdated', msg));
   });
 };
