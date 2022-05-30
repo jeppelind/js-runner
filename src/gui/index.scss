@@ -14,3 +14,13 @@ h1, h2, h3, h4, h5, h6 {
   color: $warning;
   background: shade-color($background, 40%);
 }
+
+::-webkit-scrollbar {
+  width: 5px;
+  height: 8px;
+  background-color: shade-color($background, 10%);
+}
+::-webkit-scrollbar-thumb {
+  background: tint-color($background, 12%);
+  border-radius: 3px;
+}

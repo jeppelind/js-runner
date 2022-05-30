@@ -29,12 +29,19 @@ const RunnerStatus = ({ meta }: RunnerStatusProps) => {
     return <span className={getSuccessClass(successRate)}>{successRate}<small>%</small></span>;
   };
 
+  const getLastRun = () => {
+    if (meta.lastRun > 0) {
+      return new Date(meta.lastRun).toUTCString();
+    }
+    return 'N/A';
+  };
+
   return (
     <>
       <h6 className='dash-heading'>STATUS</h6>
       <Row>
         <span className='label'>Last run</span>
-        <p>{new Date(meta.lastRun).toUTCString()}</p>
+        <p>{getLastRun()}</p>
       </Row>
       <Row>
         <Col>

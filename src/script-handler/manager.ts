@@ -13,7 +13,6 @@ const setRunnerConfig = async (filename: string) => {
   const scriptName = `${nameWithoutExtension}.js`;
   const configName = `${nameWithoutExtension}.json`;
   if (!runners.has(scriptName)) {
-    logger.log(`Runner ${scriptName} not found.`);
     return;
   }
   try {

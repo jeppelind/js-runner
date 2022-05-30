@@ -1,13 +1,11 @@
-/* eslint-disable no-undef */
-/* eslint-disable no-unused-vars */
-/* eslint-disable max-len */
-import React from 'react';
 import { useSetRecoilState } from 'recoil';
 import { deleteRunnersSelector, setLogsSelector, setRunnersSelector } from '../app/store';
 
 interface IElectron {
   ipcRenderer: {
-    on: (channel: string, listener: (event: Electron.IpcRendererEvent, ...args: any[]) => void) => void,
+    // eslint-disable-next-line no-undef
+    on: (channel: string, listener: (event: Electron.IpcRendererEvent, ...args: any[])
+      => void) => void,
   },
 }
 
