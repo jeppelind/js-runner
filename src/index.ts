@@ -1,13 +1,17 @@
 import { app, BrowserWindow } from 'electron';
+import { readFileSync } from 'fs';
+import ini from 'ini';
 import { LogItem } from './logger/logger';
 import emitter from './script-handler/eventEmitter';
 import {
   exportRunner, exportRunners, initScripts, watchDir,
 } from './script-handler/manager';
 
+const config = ini.parse(readFileSync('./jsrunner.ini', 'utf-8'));
+
 const initScriptHandler = () => {
-  initScripts('./testdir');
-  watchDir('./testdir');
+  initScripts(config.paths.scriptdir);
+  watchDir(config.paths.scriptdir);
 };
 
 const createWindow = () => {
@@ -54,6 +58,7 @@ const createWindow = () => {
     const runnerConfigs = exportRunners();
     runnerConfigs.map((runner) => win.webContents.send('runnerUpdated', runner));
     logCue.map((msg) => win.webContents.send('logUpdated', msg));
+    win.webContents.send('config', config);
   });
 };
 

@@ -1,4 +1,5 @@
 import { useSetRecoilState } from 'recoil';
+import configState from '../app/config';
 import { deleteRunnersSelector, setLogsSelector, setRunnersSelector } from '../app/store';
 
 interface IElectron {
@@ -19,6 +20,7 @@ const APIListeners: () => any = () => {
   const setRunners = useSetRecoilState(setRunnersSelector);
   const deleteRunner = useSetRecoilState(deleteRunnersSelector);
   const setLog = useSetRecoilState(setLogsSelector);
+  const setConfig = useSetRecoilState(configState);
 
   window.electron.ipcRenderer.on('runnerUpdated', (_, msg) => {
     setRunners(msg);
@@ -34,6 +36,10 @@ const APIListeners: () => any = () => {
 
   window.electron.ipcRenderer.on('logUpdated', (_, msg) => {
     setLog((currentState) => [msg, ...currentState]);
+  });
+
+  window.electron.ipcRenderer.on('config', (_, msg) => {
+    setConfig(msg);
   });
 
   return null;

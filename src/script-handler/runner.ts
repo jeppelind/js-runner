@@ -22,8 +22,11 @@ type MetaData = {
 
 type ScriptContext = {
   global: CustomObject,
+  mem: CustomObject,
   logger: Logger,
 }
+
+const globalScriptObject = {};
 
 const defaultScriptConfig: ScriptConfig = {
   enabled: true,
@@ -40,7 +43,8 @@ const defaultMetaData: MetaData = {
 };
 
 const defaultContext: ScriptContext = {
-  global: {},
+  global: globalScriptObject,
+  mem: {},
   logger: null,
 };
 

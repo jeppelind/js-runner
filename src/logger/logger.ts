@@ -1,8 +1,12 @@
 import { randomUUID } from 'crypto';
+import { readFileSync } from 'fs';
 import {
   format, createLogger, transports, Logger as WinstonLogger,
 } from 'winston';
+import ini from 'ini';
 import emitter from '../script-handler/eventEmitter';
+
+const config = ini.parse(readFileSync('./jsrunner.ini', 'utf-8'));
 
 export type LogItem = {
   id: string,
@@ -33,7 +37,7 @@ export class Logger {
       format: format.combine(format.timestamp(), format.splat(), format.simple()),
       defaultMeta: meta || { script: 'main' },
       transports: [
-        new transports.File({ filename: 'jsrunner.log' }),
+        new transports.File({ filename: config.paths.log }),
       ],
     });
     if (process.env.NODE_ENV !== 'production') {
