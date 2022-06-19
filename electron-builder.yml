@@ -1,0 +1,20 @@
+appId: com.jeppelind.jsrunner
+productName: JSRunner
+directories:
+  output: release
+files: [
+  {
+    from: ./dist/,
+    to: .,
+    filter: [
+      '**/*'
+    ]
+  },
+  ./package.json
+]
+extraFiles:
+  ./jsrunner.ini
+  ./scripts
+win:
+  target:
+    - target: 7z
