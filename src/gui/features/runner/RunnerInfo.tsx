@@ -46,7 +46,7 @@ const RunnerInfo = ({ id }: { id: string }) => {
   }
 
   return (
-    <Container className='mt-4 ms-4'>
+    <Container className='mt-4 ms-4 scrollwrap'>
       <h1 className='display-3'>{runner.id.substring(runner.id.lastIndexOf('/') + 1)}</h1>
       <br />
       <RunnerConfig id={runner.id} config={runner.config} />
