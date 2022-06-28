@@ -7,6 +7,9 @@ import ini from 'ini';
 import emitter from '../script-handler/eventEmitter';
 
 const config = ini.parse(readFileSync('./jsrunner.ini', 'utf-8'));
+if (!config.paths || !config.paths.log) {
+  config.paths.log = './jsrunner.log';
+}
 
 export type LogItem = {
   id: string,
@@ -48,6 +51,11 @@ export class Logger {
   log(msg: any) {
     this.#winston.log('info', msg);
     updateLog('info', msg, this.#winston.defaultMeta);
+  }
+
+  warn(msg: any) {
+    this.#winston.log('warn', msg);
+    updateLog('warn', msg, this.#winston.defaultMeta);
   }
 
   error(msg: any) {

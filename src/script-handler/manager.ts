@@ -21,7 +21,7 @@ const setRunnerConfig = async (filename: string) => {
     runner.config = JSON.parse(userConfig);
     emitter.emit('runnerUpdated', scriptName);
   } catch (err) {
-    logger.error(err.message);
+    logger.warn(err.message);
   }
 };
 

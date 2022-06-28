@@ -54,6 +54,10 @@
   background-color: shade-color($danger, 20%);
 }
 
+.log-warn {
+  background-color: shade-color($warning, 40%);
+}
+
 .log-message {
   font-size: 0.9rem;
   padding-top: 0.6rem;
