@@ -10,7 +10,8 @@ type ScriptConfig = {
   enabled: boolean,
   runImmediately: boolean,
   repeatDelay: number,
-  nodeAPI: string[]
+  nodeAPI: string[],
+  packages: string[],
 }
 
 type MetaData = {
@@ -33,6 +34,7 @@ const defaultScriptConfig: ScriptConfig = {
   runImmediately: true,
   repeatDelay: 0,
   nodeAPI: [],
+  packages: [],
 };
 
 const defaultMetaData: MetaData = {
@@ -72,7 +74,12 @@ class Runner {
       nodeAPIs[api] = require(api);
     });
 
-    this.#context = { ...this.#context, ...nodeAPIs };
+    const packages: CustomObject = {};
+    this.#config.packages.forEach((packageName) => {
+      packages[packageName] = require(packageName);
+    });
+
+    this.#context = { ...this.#context, ...nodeAPIs, ...{ npm: packages } };
 
     if (this.#config.enabled && this.#config.repeatDelay > 0) {
       this.#setRepeatInterval(this.#config.repeatDelay);
