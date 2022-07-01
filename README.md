@@ -1,8 +1,8 @@
-# js-runner
+# JS Runner
 
 Run and schedule repeated execution of javascript files in the NodeJS vm.
 
-The program will watch a folder and try to run any scripts in it in their own virtualization context. A new clean context will be created upon each execution, but there are certain persistent objects that can be used to store values between runs (See *Script context* section).
+The program will watch a folder and try to run any scripts in it in their own virtualized context. A new clean context will be created upon each execution, however there are certain persistent objects that can be used to store values between runs (See [Script context](https://github.com/jeppelind/js-runner#script-context) section).
 
 
 ## Config
@@ -49,7 +49,7 @@ The following objects will always be available in the script context:
 
 
 ## Script settings
-A JSON config file can be provided alongside the script file (ex `testscript.json` for `testscript.js`), where some script settings can be provided. The default values will be used if no settings are provided.
+A JSON config file can be provided alongside the script file (ex `testscript.json` for `testscript.js`), where some script settings can be provided. The default values will be used when settings are missing.
 ### **Available settings:**
 Parameter | Type | Default value | Description
 --- | --- | :---: | ---
@@ -64,10 +64,7 @@ packages | String[] | [] | NPM packages used by the script.
 
 nodeAPI consists of an array with NodeJS apis that will be added to the scripts context. These can then be reached directly from the script:
 
-```json
-nodeAPI: ["crypto"]`
-```
-
+`nodeAPI: ["crypto"]`
 ```javascript
 const someValue = crypto.randomUUID();
 ```
@@ -79,14 +76,12 @@ See NodeJS [API docs](https://nodejs.org/en/docs/) for documentation.
 
 The packages array contain names of NPM packages that will be added to the scripts context. These will be added to the `npm` object in the script.
 
-```json
-packages: ["mongoose", "redis"]
-```
+`packages: ["mongoose", "redis"]`
 ```javascript
 const mongoose = npm['mongoose'];
 const { createClient } = npm['redis'];
 ```
-> Note: The npm packages need to be installed on the system, either globally or locally. Local installs need to be located in the same folder as js-runner or a parent folder. 
+> Note: The npm packages need to be installed on the system, either globally or locally. Local installs need to be located in the same folder as js-runner or any parent folder. 
 
 
 ### **Example config:**
