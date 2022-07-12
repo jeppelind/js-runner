@@ -12,9 +12,10 @@ files: [
   },
   ./package.json
 ]
-extraFiles:
-  ./jsrunner.ini
-  ./scripts
+extraFiles: [
+  ./jsrunner.ini,
+  ./scripts/
+]
 win:
   target:
-    - target: 7z
+    - target: nsis

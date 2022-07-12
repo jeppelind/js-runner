@@ -14,10 +14,16 @@ const RunnerInfo = ({ id }: { id: string }) => {
   const runner = useRecoilValue(runnerSelector(id));
   const config = useRecoilValue(configState);
 
+  const formatAppLocationString = (appLocation: string) => appLocation.replace('resources\\app.asar', '');
+
   if (id === '') {
     return (
       <Container className='ms-4 scrollwrap'>
         <h6 className='dash-heading'>SETTINGS</h6>
+        <Row className='justify-content-md-left'>
+          <span className='label'>App location</span>
+          <p>{config.appLocation && formatAppLocationString(config.appLocation)}</p>
+        </Row>
         <Row className='justify-content-md-left'>
           <Col>
             <span className='label'>Scripts source</span>

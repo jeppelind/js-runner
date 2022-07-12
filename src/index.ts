@@ -8,6 +8,7 @@ import {
 } from './script-handler/manager';
 
 const config = ini.parse(readFileSync('./jsrunner.ini', 'utf-8'));
+config.appLocation = __dirname;
 
 const initScriptHandler = () => {
   initScripts(config.paths.scriptdir);

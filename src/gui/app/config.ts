@@ -1,6 +1,7 @@
 import { atom } from 'recoil';
 
 type ConfigItem = {
+  appLocation: string,
   paths: {
     scriptdir: string,
     log: string,
