@@ -6,7 +6,9 @@ import packageJSON from '../../../../package.json';
 const Header = () => (
   <Navbar variant='dark' fixed='top'>
     <Container fluid>
-      <Navbar.Brand>JSRunner</Navbar.Brand>
+      <Navbar.Brand>
+        <img src='static/icon64.png' height='26' />
+      </Navbar.Brand>
       <Navbar.Collapse>
         <Navbar.Text className='version-number'>{packageJSON.version}</Navbar.Text>
       </Navbar.Collapse>

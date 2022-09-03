@@ -69,4 +69,6 @@ const initGUI = async () => {
 };
 
 initScriptHandler();
-initGUI();
+if (process.env.DISPLAY_MODE !== 'backend') {
+  initGUI();
+}
