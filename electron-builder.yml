@@ -1,5 +1,5 @@
 appId: com.jeppelind.jsrunner
-productName: JSRunner
+productName: JS Runner
 directories:
   output: release
 files: [

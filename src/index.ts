@@ -19,6 +19,7 @@ const initScriptHandler = () => {
 
 const createWindow = () => {
   const win = new BrowserWindow({
+    title: 'JS Runner',
     width: 800,
     height: 600,
     titleBarStyle: 'hidden',
@@ -77,7 +78,7 @@ const createTrayIcon = (win: BrowserWindow) => {
     { label: 'Open', click: () => win.show() },
     { label: 'Minimize', click: () => win.hide() },
     { type: 'separator' },
-    { label: 'Exit', click: () => win.close() },
+    { label: 'Exit', click: () => app.exit(0) },
   ]);
   tray.setContextMenu(contextMenu);
   tray.setToolTip('JS Runner');
