@@ -1,4 +1,6 @@
-import { app, BrowserWindow } from 'electron';
+import {
+  app, BrowserWindow, Menu, nativeImage, Tray,
+} from 'electron';
 import { readFileSync } from 'fs';
 import ini from 'ini';
 import { LogItem } from './logger/logger';
@@ -16,8 +18,6 @@ const initScriptHandler = () => {
 };
 
 const createWindow = () => {
-  let clientReady = false;
-  const logCue: LogItem[] = [];
   const win = new BrowserWindow({
     width: 800,
     height: 600,
@@ -31,6 +31,13 @@ const createWindow = () => {
     },
   });
   win.loadFile('./gui/index.html');
+
+  return win;
+};
+
+const initEventListeners = (win: BrowserWindow) => {
+  let clientReady = false;
+  const logCue: LogItem[] = [];
 
   emitter.on('runnerExecuted', (msg) => {
     const runner = exportRunner(msg);
@@ -63,9 +70,24 @@ const createWindow = () => {
   });
 };
 
+const createTrayIcon = (win: BrowserWindow) => {
+  const icon = nativeImage.createFromPath(`${__dirname}/gui/static/icon32.png`);
+  const tray = new Tray(icon);
+  const contextMenu = Menu.buildFromTemplate([
+    { label: 'Open', click: () => win.show() },
+    { label: 'Minimize', click: () => win.hide() },
+    { type: 'separator' },
+    { label: 'Exit', click: () => win.close() },
+  ]);
+  tray.setContextMenu(contextMenu);
+  tray.setToolTip('JS Runner');
+};
+
 const initGUI = async () => {
   await app.whenReady();
-  createWindow();
+  const win = createWindow();
+  initEventListeners(win);
+  createTrayIcon(win);
 };
 
 initScriptHandler();
