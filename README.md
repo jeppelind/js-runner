@@ -17,7 +17,7 @@ log=./jsrunner.log  #Path to log file
 
 ## Scripts
 ------
-Any .js files located in the `scriptdir` folder or any subfolders will be parsed and executed.
+Any .js files located in the `scriptdir` folder or any subfolders will be parsed and executed (default folder `./scripts`).
 
 Files will by default be parsed and run as soon as they are added or changed.
 
@@ -81,7 +81,7 @@ The packages array contain names of NPM packages that will be added to the scrip
 const mongoose = npm['mongoose'];
 const { createClient } = npm['redis'];
 ```
-> Note: The npm packages need to be installed on the system, either globally or locally. Local installs need to be located in the same folder as js-runner or any parent folder. 
+> Note: The npm packages need to be installed on the system, either globally or locally. Local installs need to be located in the `./resources` folder. 
 
 
 ### **Example config:**

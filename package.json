@@ -1,6 +1,6 @@
 {
   "name": "js-runner",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Run JavaScript files in NodeJS VM.",
   "main": "index.js",
   "scripts": {
@@ -10,7 +10,7 @@
     "build": "tsc --project tsconfig.build.json && webpack --config ./webpack.config.js",
     "build:dev": "tsc --project tsconfig.build.json && webpack --config ./webpack.config.js --mode=development",
     "start:backend": "cross-env DISPLAY_MODE=backend ts-node src/index.ts",
-    "start:dev": "npm run build:dev && npm start",
+    "start:dev": "npm run build:dev && electron ./dist/index.js",
     "start": "npm run build && electron ./dist/index.js"
   },
   "author": "Jeppe Lind",

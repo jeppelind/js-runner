@@ -52,12 +52,24 @@ const RunnerConfig = ({ id, config }: RunnerConfigProps) => {
         </Col>
       </Row>
       <Row>
-      <span className='label'>nodeAPI</span>
-        <p>
-        {
-          config.nodeAPI.map((api) => <><Badge key={id} bg='primary'>{api}</Badge>{' '}</>)
-        }
-        </p>
+        <Col>
+          <span className='label'>nodeAPI</span>
+          <p>
+            {config.nodeAPI.length > 0
+              ? config.nodeAPI.map((api) => <><Badge key={id} bg='primary'>{api}</Badge>{' '}</>)
+              : <>N/A</>
+            }
+          </p>
+        </Col>
+        <Col>
+          <span className='label'>packages</span>
+          <p>
+            {config.packages.length > 0
+              ? config.packages.map((api) => <><Badge key={id} bg='primary'>{api}</Badge>{' '}</>)
+              : <>N/A</>
+            }
+          </p>
+        </Col>
       </Row>
     </>
   );

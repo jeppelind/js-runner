@@ -7,6 +7,7 @@ export type Runner = {
     runImmediately: boolean,
     repeatDelay: number,
     nodeAPI: string[],
+    packages: string[],
   },
   meta: {
     lastRun: number,
