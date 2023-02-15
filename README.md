@@ -78,8 +78,8 @@ The packages array contain names of NPM packages that will be added to the scrip
 
 `packages: ["mongoose", "redis"]`
 ```javascript
-const mongoose = npm['mongoose'];
-const { createClient } = npm['redis'];
+const mongoose = npm.mongoose;
+const { createClient } = npm.redis;
 ```
 > Note: The npm packages need to be installed on the system, either globally or locally. Local installs need to be located in the `./resources` folder. 
 
